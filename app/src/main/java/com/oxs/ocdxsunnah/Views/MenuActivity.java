@@ -51,7 +51,6 @@ public class MenuActivity extends AppCompatActivity {
                 switch (item.getId()){
                     case 2:
                         selectedFragment = new HomeFragment();
-
                         break;
                     case 3:
                         selectedFragment = new RekomenFragment();
