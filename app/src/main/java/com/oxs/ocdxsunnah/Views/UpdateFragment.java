@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +42,8 @@ public class UpdateFragment extends Fragment {
 
     EditText edit;
     Button btnUpdate;
-    TextView tvUpdate;
+    TextView txtPersentase;
+    ProgressBar progressBar;
 
     DatabaseInit db = new DatabaseInit();
 
@@ -90,7 +92,8 @@ public class UpdateFragment extends Fragment {
 
         btnUpdate = (Button) root.findViewById(R.id.btnUpdate);
         edit = (EditText) root.findViewById(R.id.txtUpdate);
-        tvUpdate =  root.findViewById(R.id.tvUpdate);
+        progressBar = (ProgressBar) root.findViewById(R.id.progressbar);
+        txtPersentase = (TextView)root.findViewById(R.id.textPersentase);
 
 
         edit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -111,6 +114,8 @@ public class UpdateFragment extends Fragment {
                 bIdeal = snapshot.child(firebaseUser.getUid()).child("beratIdeal").getValue().toString();
                 beratUpdate = snapshot.child(firebaseUser.getUid()).child("beratUpdate").getValue().toString();
 
+                edit.setText(beratUpdate);
+
                 hitungProgres(beratUpdate, bIdeal, bBadan);
 
             }
@@ -124,7 +129,11 @@ public class UpdateFragment extends Fragment {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                beratUpdate = edit.getText().toString();
                 db.user.child(uID).child("beratUpdate").setValue(beratUpdate);
+
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             }
         });
 
@@ -132,12 +141,20 @@ public class UpdateFragment extends Fragment {
 
     }
 
-    private String hitungProgres(String bU, String bI, String bB){
-        float berat = Float.parseFloat(bU) - Float.parseFloat(bI);
+    private int hitungProgres(String bU, String bI, String bB){
+        float Berat = Float.parseFloat(bB) - Float.parseFloat(bI);
+        int berat = (int) Berat;
+        float Rumus = Berat - (Float.parseFloat(bU)-Float.parseFloat(bI));
+        int rumus = (int) Rumus;
+        int Update = 100*rumus/berat;
+        Update(Update);
 
+        return Update;
+    }
 
-        String a1 = "s";
-        return a1;
+    private void Update(int beratUpdate){
+        progressBar.setProgress(beratUpdate);
+        txtPersentase.setText(beratUpdate+"%");
     }
 
 }
