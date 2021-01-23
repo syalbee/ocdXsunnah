@@ -126,6 +126,8 @@ public class LoginActivity extends AppCompatActivity {
                 } catch (ApiException e) {
                     e.printStackTrace();
                 }
+            } else {
+                displayToast(signInAccountTask.getException().getMessage());
             }
         }
     }

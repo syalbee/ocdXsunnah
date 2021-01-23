@@ -49,6 +49,7 @@ public class WaktuActivity extends AppCompatActivity {
                     Toast.makeText(WaktuActivity.this, "pilih salah satu", Toast.LENGTH_SHORT).show();
                 } else {
                     db.user.child(uID).child("tanggalAktif").setValue(gd.getDateNow("dd/MM/yyyy"));
+                    db.user.child(uID).child("beratUpdate").setValue("0");
                     Intent next = new Intent(WaktuActivity.this, MenuActivity.class);
                     startActivity(next);
                     finish();

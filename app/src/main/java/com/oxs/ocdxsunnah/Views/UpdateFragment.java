@@ -1,7 +1,9 @@
 package com.oxs.ocdxsunnah.Views;
 
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,9 +12,15 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.core.Context;
+import com.oxs.ocdxsunnah.Database.DatabaseInit;
 import com.oxs.ocdxsunnah.R;
 
 /**
@@ -33,7 +41,13 @@ public class UpdateFragment extends Fragment {
 
     EditText edit;
     Button btnUpdate;
-    boolean isi;
+    TextView tvUpdate;
+
+    DatabaseInit db = new DatabaseInit();
+
+    private String bBadan, bIdeal;
+    private String beratUpdate;
+    private  String uID;
 
     public UpdateFragment() {
         // Required empty public constructor
@@ -64,6 +78,8 @@ public class UpdateFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
@@ -74,22 +90,54 @@ public class UpdateFragment extends Fragment {
 
         btnUpdate = (Button) root.findViewById(R.id.btnUpdate);
         edit = (EditText) root.findViewById(R.id.txtUpdate);
-        isi = false;
-        edit.setOnClickListener(new View.OnClickListener() {
+        tvUpdate =  root.findViewById(R.id.tvUpdate);
+
+
+        edit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
-                isi = true;
+            public void onFocusChange(View v, boolean hasFocus) {
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
             }
         });
 
-        if (isi == true){
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
-            imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, InputMethodManager.HIDE_NOT_ALWAYS);
-        }
+        db.user.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                FirebaseUser firebaseUser = db.firebaseAuth.getCurrentUser();
+                uID = firebaseUser.getUid();
+
+                bBadan = snapshot.child(firebaseUser.getUid()).child("beratBadan").getValue().toString();
+                bIdeal = snapshot.child(firebaseUser.getUid()).child("beratIdeal").getValue().toString();
+                beratUpdate = snapshot.child(firebaseUser.getUid()).child("beratUpdate").getValue().toString();
+
+                hitungProgres(beratUpdate, bIdeal, bBadan);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.user.child(uID).child("beratUpdate").setValue(beratUpdate);
+            }
+        });
 
         return root;
 
     }
 
+    private String hitungProgres(String bU, String bI, String bB){
+        float berat = Float.parseFloat(bU) - Float.parseFloat(bI);
+
+
+        String a1 = "s";
+        return a1;
+    }
 
 }
