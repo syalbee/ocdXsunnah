@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.oxs.ocdxsunnah">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.OcdXsunnah">
+        <activity android:name=".Views.SettingActivity"></activity>
+        <activity android:name=".Views.WaktuActivity" />
+        <activity android:name=".Views.BiodataActivity" />
+        <activity android:name=".Views.MetodeActivity" />
+        <activity android:name=".Views.MenuActivity" />
+        <activity android:name=".Views.StepActivity" />
+        <activity android:name=".Views.AwalActivity" />
+        <activity android:name=".Views.LoginActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
