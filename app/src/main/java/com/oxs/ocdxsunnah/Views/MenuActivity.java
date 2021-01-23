@@ -25,6 +25,7 @@ public class MenuActivity extends AppCompatActivity {
         nabar.add(new MeowBottomNavigation.Model(2, R.drawable.ic_home_24));
         nabar.add(new MeowBottomNavigation.Model(3, R.drawable.ic_list_24));
 
+
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmentLayout, new HomeFragment()).commit();
 
@@ -50,6 +51,7 @@ public class MenuActivity extends AppCompatActivity {
                 switch (item.getId()){
                     case 2:
                         selectedFragment = new HomeFragment();
+
                         break;
                     case 3:
                         selectedFragment = new RekomenFragment();
