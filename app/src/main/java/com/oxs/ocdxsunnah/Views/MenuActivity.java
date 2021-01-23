@@ -13,6 +13,7 @@ public class MenuActivity extends AppCompatActivity {
 
     MeowBottomNavigation nabar;
     DatabaseInit db = new DatabaseInit();
+    private String ss;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
