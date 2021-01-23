@@ -22,6 +22,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.oxs.ocdxsunnah.Database.DatabaseInit;
 import com.oxs.ocdxsunnah.R;
 import com.oxs.ocdxsunnah.Receiver.AlarmAkhirReceiver;
@@ -48,8 +52,12 @@ public class SettingActivity extends AppCompatActivity {
     TextView waktuText;
     Button btLogout;
     ImageButton btBack;
-    int jamSahur, menitSahur;
-    String mode;
+
+    private int jamSahur, menitSahur;
+    private final int endhour = 16;
+    private final int hour = 12;
+    private int lama;
+    private String mode;
 
     DatabaseInit db = new DatabaseInit();
 
@@ -90,20 +98,25 @@ public class SettingActivity extends AppCompatActivity {
 
         saveState();
         getDataFromApi();
-
-        final int hour = 12;
-
-        //dari firebase
-        final int endhour = 16;
-        mode = "ocd";
-
         stopService();
 
+        db.user.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                FirebaseUser firebaseUser = db.firebaseAuth.getCurrentUser();
+                
 
-        if (mode.equalsIgnoreCase("kolab")) {
-            as.setVisibility(View.INVISIBLE);
-            waktuText.setVisibility(View.INVISIBLE);
-        }
+                String metode = snapshot.child(firebaseUser.getUid()).child("metode").getValue().toString();
+                String endHours = snapshot.child(firebaseUser.getUid()).child("lama").getValue().toString();
+                konversi(metode, endHours);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
         nf.setOnClickListener(new View.OnClickListener() {
@@ -221,7 +234,17 @@ public class SettingActivity extends AppCompatActivity {
                 startActivity(back);
             }
         });
+        Toast.makeText(this, String.valueOf(lama), Toast.LENGTH_SHORT).show();
     }
+
+    private void konversi(String a, String b){
+        mode = a;
+        if (mode.equalsIgnoreCase("ocd")) {
+            as.setVisibility(View.INVISIBLE);
+            waktuText.setVisibility(View.INVISIBLE);
+        }
+    }
+
 
     private void startNotif(int time) {
 
@@ -453,4 +476,6 @@ public class SettingActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences4 = getSharedPreferences("save4", MODE_PRIVATE);
         as.setEnabled(sharedPreferences4.getBoolean("value", false));
     }
+
+
 }
