@@ -8,12 +8,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oxs.ocdxsunnah.Models.OlahragaModels;
 import com.oxs.ocdxsunnah.R;
 import com.oxs.ocdxsunnah.Retrofit.ApiService;
 import com.oxs.ocdxsunnah.Retrofit.ApiServiceOlahraga;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -37,8 +39,8 @@ public class RekomenFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-
-    TextView txtNama, txtUlasan, txtNama2, txtUlasan2, txtNama3, txtUlasan3, txtNama4, txtUlasan4;
+    private String nama;
+    private TextView txtNama, txtUlasan, txtNama2, txtUlasan2, txtNama3, txtUlasan3, txtNama4, txtUlasan4;
 
     public RekomenFragment() {
         // Required empty public constructor
@@ -85,6 +87,24 @@ public class RekomenFragment extends Fragment {
         txtNama4 = (TextView) root.findViewById(R.id.txtNama4);
         txtUlasan4 = (TextView) root.findViewById(R.id.txtUlasan4);
 
+        ImageView imageView1 = root.findViewById(R.id.image_url1);
+
+        Picasso.get().load("https://cms.sehatq.com/public/img/article_img/macam-macam-gaya-dalam-renang-yang-bisa-anda-pelajari-1601439075.jpg").into(imageView1);
+
+        ImageView imageView2 = root.findViewById(R.id.image_url2);
+
+        Picasso.get().load("https://image-cdn.medkomtek.com/7B64B4BVXahbHMIGskbI6wD1e2A=/1200x675/smart/klikdokter-media-buckets/medias/2308113/original/033058000_1567909037-Tips-Sukses-Kembali-Olahraga-Rutin-setelah-Liburan-By-Jacek-Chabraszewski-Shutterstock.jpg").into(imageView2);
+
+        ImageView imageView3 = root.findViewById(R.id.image_url3);
+
+        Picasso.get().load("https://ecs7.tokopedia.net/blog-tokopedia-com/uploads/2019/01/Blog_Fungsi-dan-Manfaat-Sepeda-Statis-Atasi-Kolesterol-hingga-Alzheimer.jpg").into(imageView3);
+
+        ImageView imageView4 = root.findViewById(R.id.image_url4);
+
+        Picasso.get().load("https://www.mensjournal.com/wp-content/uploads/2017/12/jump-rope-main.jpg?quality=86&strip=all").into(imageView4);
+
+        getDataFromApi();
+
         return root;
     }
 
@@ -108,13 +128,12 @@ public class RekomenFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<OlahragaModels> call, Throwable t) {
-                        Log.d("RekomenFragment", t.toString());
+                        Log.d("MenuActivity", t.toString());
                     }
                 });
     }
 
     public void tampilNama(String nama) {
-
         txtNama.setText(nama);
     }
 
