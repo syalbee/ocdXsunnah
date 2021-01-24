@@ -258,7 +258,7 @@ public class SettingActivity extends AppCompatActivity {
         c.set(Calendar.HOUR_OF_DAY,time);
         c.set(Calendar.MINUTE, 00);
         c.set(Calendar.SECOND, 00);
-        Toast.makeText(this, ""+c.getTime(), Toast.LENGTH_LONG).show();
+
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, NotifAwalReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
@@ -274,7 +274,7 @@ public class SettingActivity extends AppCompatActivity {
         c.set(Calendar.HOUR_OF_DAY,time);
         c.set(Calendar.MINUTE, 00);
         c.set(Calendar.SECOND, 00);
-        Toast.makeText(this, ""+c.getTime(), Toast.LENGTH_LONG).show();
+
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, NotifAkhirReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 2, intent, 0);
