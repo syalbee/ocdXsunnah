@@ -75,7 +75,7 @@ public class RekomenFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View root = inflater.inflate(R.layout.fragment_update, container, false);
+        final View root = inflater.inflate(R.layout.fragment_rekomen, container, false);
         txtNama = (TextView) root.findViewById(R.id.txtNama);
         txtUlasan = (TextView) root.findViewById(R.id.txtUlasan);
         txtNama2 = (TextView) root.findViewById(R.id.txtNama2);
