@@ -14,7 +14,7 @@ public class AlarmSahurReceiver extends BroadcastReceiver {
 
         NotifAlarmSahur notif = new NotifAlarmSahur(context);
         NotificationCompat.Builder nb = notif.getChannelNotification();
-        notif.getManager().notify(0, nb.build());
+        notif.getManager().notify(4, nb.build());
 
     }
 }

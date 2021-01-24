@@ -56,11 +56,11 @@ public class NotifAlarmAkhir extends ContextWrapper {
         return new NotificationCompat.Builder(getApplicationContext(), channelID1)
                 .setContentTitle("Pengingat")
                 .setContentText("Waktu Makan Telah Berakhir!")
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.mipmap.logo)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .setColor(Color.GREEN)
-                .addAction(R.drawable.ic_launcher_background, "Berhenti", pendingIntent1);
+                .addAction(R.mipmap.logo, "Berhenti", pendingIntent1);
     }
 }

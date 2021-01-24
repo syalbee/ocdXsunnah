@@ -61,12 +61,12 @@ public class NotifAlarmSahur extends ContextWrapper {
             return new NotificationCompat.Builder(getApplicationContext(), channelID1)
                     .setContentTitle("Pengingat")
                     .setContentText("Bangun! Sudah Waktu Sahur!")
-                    .setSmallIcon(R.drawable.ic_launcher_background)
+                    .setSmallIcon(R.mipmap.logo)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setContentIntent(pendingIntent)
                     .setAutoCancel(true)
                     .setColor(Color.GREEN)
-                    .addAction(R.drawable.ic_launcher_background, "Berhenti", pendingIntent1);
+                    .addAction(R.mipmap.logo, "Berhenti", pendingIntent1);
         }
         return null;
     }
