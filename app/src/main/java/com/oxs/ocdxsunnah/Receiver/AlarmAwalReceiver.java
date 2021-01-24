@@ -14,6 +14,6 @@ public class AlarmAwalReceiver extends BroadcastReceiver {
 
         NotifAlarmAwal notif = new NotifAlarmAwal(context);
         NotificationCompat.Builder nb = notif.getChannelNotification();
-        notif.getManager().notify(0, nb.build());
+        notif.getManager().notify(2, nb.build());
     }
 }

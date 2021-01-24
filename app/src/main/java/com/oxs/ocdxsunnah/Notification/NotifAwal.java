@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 
@@ -49,7 +50,7 @@ public class NotifAwal extends ContextWrapper {
         return new NotificationCompat.Builder(getApplicationContext(), channelID1)
                 .setContentTitle("Pengingat")
                 .setContentText("Waktu Makan Telah Dimulai!")
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.mipmap.logo)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)

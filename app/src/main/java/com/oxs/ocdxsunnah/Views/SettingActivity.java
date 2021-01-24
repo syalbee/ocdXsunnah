@@ -2,6 +2,7 @@ package com.oxs.ocdxsunnah.Views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -27,6 +28,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.oxs.ocdxsunnah.Database.DatabaseInit;
+import com.oxs.ocdxsunnah.Notification.NotifAwal;
 import com.oxs.ocdxsunnah.R;
 import com.oxs.ocdxsunnah.Receiver.AlarmAkhirReceiver;
 import com.oxs.ocdxsunnah.Receiver.AlarmAwalReceiver;
@@ -54,7 +56,7 @@ public class SettingActivity extends AppCompatActivity {
     ImageButton btBack;
 
     private int jamSahur, menitSahur;
-    private final int endhour = 16;
+    private int endhour;
     private final int hour = 12;
     private int lama;
     private String mode;
@@ -98,13 +100,11 @@ public class SettingActivity extends AppCompatActivity {
 
         saveState();
         getDataFromApi();
-        stopService();
 
         db.user.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 FirebaseUser firebaseUser = db.firebaseAuth.getCurrentUser();
-                
 
                 String metode = snapshot.child(firebaseUser.getUid()).child("metode").getValue().toString();
                 String endHours = snapshot.child(firebaseUser.getUid()).child("lama").getValue().toString();
@@ -123,6 +123,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (nf.isChecked()) {
+
                     SharedPreferences.Editor editor = getSharedPreferences("save", MODE_PRIVATE).edit();
                     editor.putBoolean("value", true);
                     editor.apply();
@@ -132,6 +133,7 @@ public class SettingActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor2 = getSharedPreferences("save4", MODE_PRIVATE).edit();
                     editor2.putBoolean("value", true);
                     editor2.apply();
+
                     nf.setChecked(true);
                     notifOn();
                     startNotif(hour);
@@ -141,6 +143,7 @@ public class SettingActivity extends AppCompatActivity {
                     cancelAlarm(1);
                     cancelAlarm(2);
                     cancelAlarm(3);
+
                     SharedPreferences.Editor editor = getSharedPreferences("save", MODE_PRIVATE).edit();
                     editor.putBoolean("value", false);
                     SharedPreferences.Editor editor1 = getSharedPreferences("save1", MODE_PRIVATE).edit();
@@ -156,6 +159,7 @@ public class SettingActivity extends AppCompatActivity {
                     editor2.apply();
                     editor3.apply();
                     editor4.apply();
+
                     nf.setChecked(false);
                 }
             }
@@ -165,7 +169,8 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (am.isChecked()) {
-                    cancelAlarm(hour);
+                    cancelAlarm(1);
+
                     startAlarm(hour);
                     startNotifAlarm(hour);
                     startAlarmAkhir(endhour);
@@ -217,7 +222,7 @@ public class SettingActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
 
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             db.firebaseAuth.signOut();
                             finish();
                             Toast.makeText(SettingActivity.this, "Berhasil logout", Toast.LENGTH_SHORT).show();
@@ -234,24 +239,25 @@ public class SettingActivity extends AppCompatActivity {
                 startActivity(back);
             }
         });
-        Toast.makeText(this, String.valueOf(lama), Toast.LENGTH_SHORT).show();
     }
 
-    private void konversi(String a, String b){
+    private void konversi(String a, String b) {
         mode = a;
         if (mode.equalsIgnoreCase("ocd")) {
             as.setVisibility(View.INVISIBLE);
             waktuText.setVisibility(View.INVISIBLE);
         }
+
+        endhour = Integer.parseInt(b) + 12;
     }
 
 
     private void startNotif(int time) {
 
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, time);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.HOUR_OF_DAY,time);
+        c.set(Calendar.MINUTE, 00);
+        c.set(Calendar.SECOND, 00);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, NotifAwalReceiver.class);
@@ -260,18 +266,14 @@ public class SettingActivity extends AppCompatActivity {
         if (c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 1);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-            }
-        }
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     private void startNotifAkhir(int time) {
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, time);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.HOUR_OF_DAY,time);
+        c.set(Calendar.MINUTE, 00);
+        c.set(Calendar.SECOND, 00);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, NotifAkhirReceiver.class);
@@ -280,18 +282,14 @@ public class SettingActivity extends AppCompatActivity {
         if (c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 1);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-            }
-        }
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     private void startAlarm(int hour) {
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, hour);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.HOUR_OF_DAY,hour);
+        c.set(Calendar.MINUTE, 00);
+        c.set(Calendar.SECOND, 00);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmAwalService.class);
@@ -300,18 +298,14 @@ public class SettingActivity extends AppCompatActivity {
         if (c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 1);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-            }
-        }
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     private void startNotifAlarm(int hour) {
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, hour);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.HOUR_OF_DAY,hour);
+        c.set(Calendar.MINUTE, 00);
+        c.set(Calendar.SECOND, 00);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmAwalReceiver.class);
@@ -320,18 +314,14 @@ public class SettingActivity extends AppCompatActivity {
         if (c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 1);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-            }
-        }
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     private void startAlarmAkhir(int hour) {
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, hour);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.HOUR_OF_DAY,hour);
+        c.set(Calendar.MINUTE, 00);
+        c.set(Calendar.SECOND, 00);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmAkhirService.class);
@@ -340,18 +330,14 @@ public class SettingActivity extends AppCompatActivity {
         if (c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 1);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-            }
-        }
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     private void startNotifAlarmAkhir(int hour) {
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, hour);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.HOUR_OF_DAY,hour);
+        c.set(Calendar.MINUTE, 00);
+        c.set(Calendar.SECOND, 00);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmAkhirReceiver.class);
@@ -360,18 +346,14 @@ public class SettingActivity extends AppCompatActivity {
         if (c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 1);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-            }
-        }
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     private void startSahur(int hour, int minute) {
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, hour - 1);
+        c.set(Calendar.HOUR_OF_DAY, hour);
         c.set(Calendar.MINUTE, minute);
-        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.SECOND, 00);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmSahurService.class);
@@ -380,18 +362,14 @@ public class SettingActivity extends AppCompatActivity {
         if (c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 1);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-            }
-        }
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     private void startNotifSahur(int hour, int minute) {
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, hour - 1);
+        c.set(Calendar.HOUR_OF_DAY, hour);
         c.set(Calendar.MINUTE, minute);
-        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.SECOND, 00);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmSahurReceiver.class);
@@ -400,11 +378,7 @@ public class SettingActivity extends AppCompatActivity {
         if (c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 1);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-            }
-        }
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     private void cancelAlarm(int no) {
@@ -455,12 +429,6 @@ public class SettingActivity extends AppCompatActivity {
         as.setEnabled(false);
         am.setChecked(false);
         as.setChecked(false);
-    }
-
-    private void stopService() {
-        stopService(new Intent(this, AlarmAwalService.class));
-        stopService(new Intent(this, AlarmSahurService.class));
-        stopService(new Intent(this, AlarmAkhirService.class));
     }
 
     private void saveState() {

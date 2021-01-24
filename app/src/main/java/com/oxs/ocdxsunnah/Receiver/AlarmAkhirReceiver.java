@@ -14,7 +14,7 @@ public class AlarmAkhirReceiver extends BroadcastReceiver {
 
         NotifAlarmAkhir notif = new NotifAlarmAkhir(context);
         NotificationCompat.Builder nb = notif.getChannelNotification();
-        notif.getManager().notify(0, nb.build());
+        notif.getManager().notify(3, nb.build());
 
     }
 }

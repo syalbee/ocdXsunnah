@@ -3,6 +3,7 @@ package com.oxs.ocdxsunnah.Receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
@@ -15,7 +16,7 @@ public class NotifAkhirReceiver extends BroadcastReceiver {
 
         NotifAkhir notif = new NotifAkhir(context);
         NotificationCompat.Builder nb = notif.getChannelNotification();
-        notif.getManager().notify(0, nb.build());
+        notif.getManager().notify(1, nb.build());
 
     }
 }
