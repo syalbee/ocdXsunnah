@@ -98,7 +98,7 @@ public class HomeFragment extends Fragment {
         tvRentang = root.findViewById(R.id.tvrentangWaktu);
         tvDietke = root.findViewById(R.id.tvHarike);
 
-        tvWaktu.setText(gd.getDateNow("dd MM YY"));
+        tvWaktu.setText(gd.getDateNow("dd MMMM YY"));
 
         db.user.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -115,7 +115,7 @@ public class HomeFragment extends Fragment {
                     tvNamas.setText("Hi " + name);
 
                     tvbIdeal.setText(snapshot.child(firebaseUser.getUid()).child("beratIdeal").getValue().toString());
-                    tvBeratku.setText(snapshot.child(firebaseUser.getUid()).child("beratBadan").getValue().toString());
+                    tvBeratku.setText(snapshot.child(firebaseUser.getUid()).child("beratUpdate").getValue().toString());
                     tvRentang.setText(snapshot.child(firebaseUser.getUid()).child("lama").getValue().toString());
                     tanggals(snapshot.child(firebaseUser.getUid()).child("tanggalAktif").getValue().toString());
                 }

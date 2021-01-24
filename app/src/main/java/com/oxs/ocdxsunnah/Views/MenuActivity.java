@@ -13,6 +13,7 @@ public class MenuActivity extends AppCompatActivity {
 
     MeowBottomNavigation nabar;
     DatabaseInit db = new DatabaseInit();
+    private String ss;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class MenuActivity extends AppCompatActivity {
         nabar.add(new MeowBottomNavigation.Model(1, R.drawable.ic_update_64));
         nabar.add(new MeowBottomNavigation.Model(2, R.drawable.ic_home_24));
         nabar.add(new MeowBottomNavigation.Model(3, R.drawable.ic_list_24));
+
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmentLayout, new HomeFragment()).commit();

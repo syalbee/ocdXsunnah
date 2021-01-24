@@ -113,5 +113,6 @@ public class BiodataActivity extends AppCompatActivity {
         db.user.child(uID).child("tinggiBadan").setValue(tinggi);
         db.user.child(uID).child("beratIdeal").setValue(res);
         db.user.child(uID).child("jeKel").setValue(jk);
+        db.user.child(uID).child("beratUpdate").setValue(berat);
     }
 }
