@@ -147,7 +147,10 @@ public class UpdateFragment extends Fragment {
         float Rumus = Berat - (Float.parseFloat(bU)-Float.parseFloat(bI));
         int rumus = (int) Rumus;
         int Update = 100*rumus/berat;
-        Update(Update);
+
+        if (Integer.valueOf(bU) != 0){
+            Update(Update);
+        }
 
         return Update;
     }
