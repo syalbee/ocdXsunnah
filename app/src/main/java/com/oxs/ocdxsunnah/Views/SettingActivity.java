@@ -224,6 +224,8 @@ public class SettingActivity extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
                             db.firebaseAuth.signOut();
+                            Intent waktu = new Intent(SettingActivity.this, AwalActivity.class);
+                            startActivity(waktu);
                             finish();
                             Toast.makeText(SettingActivity.this, "Berhasil logout", Toast.LENGTH_SHORT).show();
                         }

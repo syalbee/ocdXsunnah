@@ -31,6 +31,7 @@ public class MenuActivity extends AppCompatActivity {
                 .replace(R.id.fragmentLayout, new HomeFragment()).commit();
 
 
+
         nabar.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
             @Override
             public void onClickItem(MeowBottomNavigation.Model item) {
@@ -66,5 +67,6 @@ public class MenuActivity extends AppCompatActivity {
                                 ,selectedFragment).commit();
             }
         });
+
     }
 }

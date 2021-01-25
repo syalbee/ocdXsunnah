@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.oxs.ocdxsunnah.Adapter.FoodAdapter;
 import com.oxs.ocdxsunnah.Adapter.OlahragaAdapter;
@@ -30,6 +33,8 @@ public class OlahragaActivity extends AppCompatActivity {
     private OlahragaAdapter olahragaAdapter;
     private List<OlahragaModels.Data> results = new ArrayList<>();
 
+    ImageButton btBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +44,23 @@ public class OlahragaActivity extends AppCompatActivity {
         getDataFromAPI();
 
         recyclerView = findViewById(R.id.rvOlahraga);
+        btBack = findViewById(R.id.btBack);
+
 
         olahragaAdapter = new OlahragaAdapter(results);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(olahragaAdapter);
+
+
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(OlahragaActivity.this, MenuActivity.class);
+                startActivity(next);
+            }
+        });
+
     }
 
     private void getDataFromAPI(){

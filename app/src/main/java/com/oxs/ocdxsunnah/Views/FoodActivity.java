@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.oxs.ocdxsunnah.Adapter.FoodAdapter;
@@ -30,6 +33,8 @@ public class FoodActivity extends AppCompatActivity {
     private FoodAdapter foodAdapter;
     private List<FoodModels.Data> results = new ArrayList<>();
 
+    ImageButton btBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,11 +43,20 @@ public class FoodActivity extends AppCompatActivity {
         getDataFromAPI();
 
         recyclerView = findViewById(R.id.rvMakanan);
+        btBack = findViewById(R.id.btBack);
 
         foodAdapter = new FoodAdapter(results);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(foodAdapter);
+
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(FoodActivity.this, MenuActivity.class);
+                startActivity(next);
+            }
+        });
 
     }
 

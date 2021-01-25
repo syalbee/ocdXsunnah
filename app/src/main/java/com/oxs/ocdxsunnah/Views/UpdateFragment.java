@@ -1,6 +1,7 @@
 package com.oxs.ocdxsunnah.Views;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -180,6 +181,7 @@ public class UpdateFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                startActivity(new Intent(getActivity(), MenuActivity.class));
             }
         });
         dialog.show();

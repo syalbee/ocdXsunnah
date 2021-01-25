@@ -8,122 +8,101 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        style="@style/CustomProgressBar"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal|center_vertical"
-        android:orientation="vertical"
+        android:max="100"
+        android:progress="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.603"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.655">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ProgressBar
-                android:id="@+id/progressbar"
-                style="@style/CustomProgressBar"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:max="100"
-                android:progress="0" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="250dp"
-                    android:layout_height="60dp"
-                    android:background="#00000000"
-                    android:gravity="center_horizontal|fill_vertical"
-                    android:text="Menuju Berat Badan Ideal"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:id="@+id/textPersentase"
-                    android:layout_width="50dp"
-                    android:layout_height="60dp"
-                    android:background="#00000000"
-                    android:gravity="center_horizontal|fill_vertical"
-                    android:text="0%"
-                    android:textColor="@color/white" />
-            </LinearLayout>
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/txtUpdate"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:imeOptions="actionDone"
-                android:inputType="number" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="Kg"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btnUpdate"
-            android:layout_width="130dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="#003116"
-            android:text="Update" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.198" />
 
     <TextView
-        android:id="@+id/tvUpdate"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:background="#00000000"
+        android:gravity="center_horizontal|fill_vertical"
+        android:text="Menuju Berat Badan Ideal"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/progressbar"
+        app:layout_constraintEnd_toEndOf="@+id/progressbar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/progressbar"
+        app:layout_constraintTop_toTopOf="@+id/progressbar"
+        app:layout_constraintVertical_bias="1.0" />
 
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="116dp"
-        android:layout_marginEnd="299dp"
-        android:layout_marginBottom="14dp"
-        android:text="Update"
-        android:textColor="@color/black"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+    <TextView
+        android:id="@+id/textPersentase"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:background="#00000000"
+        android:gravity="center_horizontal|fill_vertical"
+        android:text="0%"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/progressbar"
+        app:layout_constraintEnd_toEndOf="@+id/progressbar"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/progressbar"
+        app:layout_constraintTop_toTopOf="@+id/progressbar"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <EditText
+        android:id="@+id/txtUpdate"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="398dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginBottom="17dp"
-        android:gravity="center"
-        android:text="Update data diri kamu di setiap minggunya"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kg"
+        android:textColor="@color/black"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintBottom_toBottomOf="@+id/txtUpdate"
+        app:layout_constraintEnd_toEndOf="@+id/txtUpdate"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/txtUpdate"
+        app:layout_constraintTop_toTopOf="@+id/txtUpdate" />
+
+    <Button
+        android:id="@+id/btnUpdate"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:backgroundTint="#003116"
+        android:text="Update"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUpdate" />
+        app:layout_constraintTop_toBottomOf="@+id/progressbar"
+        app:layout_constraintVertical_bias="0.445" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="271dp"
+        android:layout_height="63dp"
+        android:text="Update data diri kamu di setiap minggunya"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.168" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
