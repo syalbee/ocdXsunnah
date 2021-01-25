@@ -2,7 +2,8 @@ package com.oxs.ocdxsunnah.Models;
 
 import java.util.ArrayList;
 
-public class OlahragaModels {
+public class FoodModels {
+
     private ArrayList<Data> data;
 
     public ArrayList<Data> getData() {
@@ -15,16 +16,17 @@ public class OlahragaModels {
 
     @Override
     public String toString() {
-        return "OlahragaModels{" +
+        return "FoodModels{" +
                 "data=" + data +
                 '}';
     }
 
-    public class Data{
+    public class Data {
         private String id;
         private String image;
+        private String qty;
         private String title;
-        private String kalori;
+        private String energy;
 
         public String getId() {
             return id;
@@ -42,6 +44,14 @@ public class OlahragaModels {
             this.image = image;
         }
 
+        public String getQty() {
+            return qty;
+        }
+
+        public void setQty(String qty) {
+            this.qty = qty;
+        }
+
         public String getTitle() {
             return title;
         }
@@ -50,12 +60,12 @@ public class OlahragaModels {
             this.title = title;
         }
 
-        public String getKalori() {
-            return kalori;
+        public String getEnergy() {
+            return energy;
         }
 
-        public void setKalori(String kalori) {
-            this.kalori = kalori;
+        public void setEnergy(String energy) {
+            this.energy = energy;
         }
 
         @Override
@@ -63,8 +73,9 @@ public class OlahragaModels {
             return "Data{" +
                     "id='" + id + '\'' +
                     ", image='" + image + '\'' +
+                    ", qty='" + qty + '\'' +
                     ", title='" + title + '\'' +
-                    ", kalori='" + kalori + '\'' +
+                    ", energy='" + energy + '\'' +
                     '}';
         }
     }

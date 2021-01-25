@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.oxs.ocdxsunnah.Adapter.OlahragaAdapter;
 import com.oxs.ocdxsunnah.Models.OlahragaModels;
 import com.oxs.ocdxsunnah.R;
 import com.oxs.ocdxsunnah.Retrofit.ApiService;
@@ -34,6 +33,8 @@ import retrofit2.Response;
  */
 public class RekomenFragment extends Fragment {
 
+    ImageButton btOlahraga, btFood;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -42,8 +43,6 @@ public class RekomenFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    private ImageButton imgOr, imgMkn;
 
     public RekomenFragment() {
         // Required empty public constructor
@@ -82,28 +81,24 @@ public class RekomenFragment extends Fragment {
         // Inflate the layout for this fragment
         final View root = inflater.inflate(R.layout.fragment_rekomen, container, false);
 
-        imgOr = (ImageButton) root.findViewById(R.id.imageButton);
-        imgMkn = (ImageButton) root.findViewById(R.id.imageButton2);
+        btFood = root.findViewById(R.id.btFood);
+        btOlahraga = root.findViewById(R.id.btOlahraga);
 
-        imgOr.setOnClickListener(new View.OnClickListener() {
+        btFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment select = new OlahragaFragment();
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.fragmentLayout, select);
-                ft.commit();
+                startActivity(new Intent(getActivity(), FoodActivity.class));
             }
         });
 
-        imgMkn.setOnClickListener(new View.OnClickListener() {
+        btOlahraga.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment select = new MakananFragment();
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.fragmentLayout, select);
-                ft.commit();
+                startActivity(new Intent(getActivity(), OlahragaActivity.class));
             }
         });
+
+
 
 
         return root;

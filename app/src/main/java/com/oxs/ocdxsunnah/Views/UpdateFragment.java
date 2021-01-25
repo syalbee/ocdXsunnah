@@ -1,5 +1,8 @@
 package com.oxs.ocdxsunnah.Views;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -44,6 +47,7 @@ public class UpdateFragment extends Fragment {
     Button btnUpdate;
     TextView txtPersentase;
     ProgressBar progressBar;
+    Dialog dialog;
 
     DatabaseInit db = new DatabaseInit();
 
@@ -94,6 +98,7 @@ public class UpdateFragment extends Fragment {
         edit = (EditText) root.findViewById(R.id.txtUpdate);
         progressBar = (ProgressBar) root.findViewById(R.id.progressbar);
         txtPersentase = (TextView)root.findViewById(R.id.textPersentase);
+        dialog = new Dialog(getActivity());
 
 
         edit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -156,8 +161,28 @@ public class UpdateFragment extends Fragment {
     }
 
     private void Update(int beratUpdate){
+
+        if(beratUpdate >= 100){
+            dialogShow();
+        }
         progressBar.setProgress(beratUpdate);
         txtPersentase.setText(beratUpdate+"%");
+    }
+
+    private void dialogShow(){
+        dialog.setContentView(R.layout.dialog_success);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        Button btOk;
+        btOk = dialog.findViewById(R.id.btYes);
+
+        btOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
 }
